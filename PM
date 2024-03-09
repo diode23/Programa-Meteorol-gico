@@ -1,0 +1,27 @@
+# Importar las bibliotecas necesarias
+import requests  # Biblioteca para realizar solicitudes HTTP
+import json  # Biblioteca para manejar datos en formato JSON
+
+# Definir la URL de la API de pronóstico del tiempo (por ejemplo, OpenWeatherMap)
+url = "http://api.openweathermap.org/data/2.5/weather?q=London&appid=your_api_key"
+
+# Realizar una solicitud GET a la API para obtener los datos meteorológicos de una ciudad específica (en este caso, Londres)
+response = requests.get(url)
+
+# Verificar si la solicitud fue exitosa (código de estado 200)
+if response.status_code == 200:
+    # Convertir los datos de respuesta a formato JSON
+    data = response.json()
+    
+    # Extraer información relevante del JSON recibido (por ejemplo, temperatura, humedad, descripción del clima)
+    temperature = data['main']['temp']
+    humidity = data['main']['humidity']
+    weather_description = data['weather'][0]['description']
+    
+    # Imprimir la información del clima en la consola
+    print(f"Temperatura: {temperature}K")
+    print(f"Humedad: {humidity}%")
+    print(f"Descripción del clima: {weather_description}")
+else:
+    # Imprimir un mensaje de error si la solicitud no fue exitosa
+    print("Error al obtener los datos meteorológicos. Por favor, verifica tu conexión a internet o la configuración de la API.")
